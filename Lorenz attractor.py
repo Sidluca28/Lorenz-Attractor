@@ -3,12 +3,10 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# Lorenz system parameters
 sigma = 10
 rho = 28
 beta = 8/3
 
-# Lorenz equations
 def lorenz(t, state):
     x, y, z = state
     dx = sigma * (y - x)
@@ -16,15 +14,12 @@ def lorenz(t, state):
     dz = x * y - beta * z
     return [dx, dy, dz]
 
-# Time span and initial condition
 t_span = (0, 40)
 t_eval = np.linspace(t_span[0], t_span[1], 10000)
 initial_state = [1.0, 1.0, 1.0]
 
-# Solve the system
 sol = solve_ivp(lorenz, t_span, initial_state, t_eval=t_eval)
 
-# Plot 3D Lorenz attractor
 fig = plt.figure(figsize=(12, 8))
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(sol.y[0], sol.y[1], sol.y[2], color='blue', lw=0.5)
@@ -35,7 +30,6 @@ ax.set_zlabel("Z")
 plt.tight_layout()
 plt.show()
 
-# Plot time series for x(t), y(t), z(t)
 fig, axs = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
 axs[0].plot(sol.t, sol.y[0], label="x(t)", color='red')
 axs[0].set_ylabel("x(t)")
